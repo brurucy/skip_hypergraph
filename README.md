@@ -10,15 +10,15 @@ The main idea is to visualize the skip list as a multiset rendered as a directed
 
 ## Current variants
 
-* Linear search hypergraph with skipping
+* Linear search hypergraph with skipping // done, awful lol
 
-* Binary search hypergraph without skipping
+* Binary search hypergraph without skipping // done, very nice(read as borat)
 
-* B+Tree hypergraph
+* B+Tree hypergraph // in the works, takes advantage of sorting many n lists of very small size
 
-* Binary heap hypergraph (heapq) 
+* Binary heap hypergraph // done! can be optimized much more if it uses the `heapq` module
 
-* Multiple nested arrays hypergraph
+* Ultra Hyper Graph 😡 // done! Benchmark Hypergraph, done with the most efficient sorted list implementation out there ![sortedcontainers](http://www.grantjenks.com/docs/sortedcontainers/)
 
 ## Next Step
 
@@ -27,3 +27,13 @@ The main idea is to visualize the skip list as a multiset rendered as a directed
 * Splaying
 
 * Access-based distribution
+
+* Hypergraph Set search : 
+
+## Interesting papers and resources:
+
+* ![Hypergraph coverage with ant colony optimization](https://blizzard.cs.uwaterloo.ca/~apat/projects/ACO-Hypergraph.pdf?fbclid=IwAR2VaxtnG11zyXvQsfvs5GmV_a7PwHPjvd86S2TorQJVyAf5JPdi8bHd3tY)
+* ![Sorted containers](http://www.grantjenks.com/docs/sortedcontainers/)
+* ![Higher-Dimensional models of networks](https://arxiv.org/pdf/0909.4314v1.pdf)
+* Splay Lists
+* BB-Tree
