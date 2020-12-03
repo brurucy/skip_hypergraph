@@ -37,3 +37,5 @@ The main idea is to visualize the skip list as a multiset rendered as a directed
 * ![Higher-Dimensional models of networks](https://arxiv.org/pdf/0909.4314v1.pdf)
 * Splay Lists
 * BB-Tree
+* ![The hypergraph bible](http://compalg.inf.elte.hu/~tony/Oktatas/Algoritmusok-hatekonysaga/Berge-hypergraphs.pdf)
+* ![B-Skip-List](https://arxiv.org/pdf/1005.0662.pdf)
