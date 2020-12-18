@@ -22,7 +22,7 @@ The main idea is to visualize the skip list as a multiset rendered as a directed
 
 ## Next Step
 
-* Interval Tree for searching
+* Interval Tree for searching -- done
 
 * Splaying
 
@@ -32,10 +32,11 @@ The main idea is to visualize the skip list as a multiset rendered as a directed
 
 ## Interesting papers and resources:
 
-* ![Hypergraph coverage with ant colony optimization](https://blizzard.cs.uwaterloo.ca/~apat/projects/ACO-Hypergraph.pdf?fbclid=IwAR2VaxtnG11zyXvQsfvs5GmV_a7PwHPjvd86S2TorQJVyAf5JPdi8bHd3tY)
-* ![Sorted containers](http://www.grantjenks.com/docs/sortedcontainers/)
-* ![Higher-Dimensional models of networks](https://arxiv.org/pdf/0909.4314v1.pdf)
+* [Hypergraph coverage with ant colony optimization](https://blizzard.cs.uwaterloo.ca/~apat/projects/ACO-Hypergraph.pdf?fbclid=IwAR2VaxtnG11zyXvQsfvs5GmV_a7PwHPjvd86S2TorQJVyAf5JPdi8bHd3tY)
+* [Sorted containers](http://www.grantjenks.com/docs/sortedcontainers/)
+* [Higher-Dimensional models of networks](https://arxiv.org/pdf/0909.4314v1.pdf)
 * Splay Lists
 * BB-Tree
-* ![The hypergraph bible](http://compalg.inf.elte.hu/~tony/Oktatas/Algoritmusok-hatekonysaga/Berge-hypergraphs.pdf)
-* ![B-Skip-List](https://arxiv.org/pdf/1005.0662.pdf)
+* [The hypergraph bible](http://compalg.inf.elte.hu/~tony/Oktatas/Algoritmusok-hatekonysaga/Berge-hypergraphs.pdf)
+* [B-Skip-List](https://arxiv.org/pdf/1005.0662.pdf)
+* [Nice skip list implementation with fast RNG](https://github.com/geertj/pyskiplist/blob/master/pyskiplist/skiplist.py)
