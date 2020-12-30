@@ -33,7 +33,7 @@ So, you might think 🤔, why not just use...Skip Lists?
 
 * make it a kv store.
 
-* Add delete~~(lol we didn't yet)~~, either as actually deleting an element, or just marking it as deleted.
+* Add delete ~~(lol we didn't yet)~~ , either as actually deleting an element, or just marking it as deleted.
 
 * Use bloom filters to speed up recurring queries
 
