@@ -1,4 +1,4 @@
-# # witchcraft <a href='https://bigdata.cs.ut.ee/'><img src='logo.png' align="right" height="138.5" /></a>
+# Witchcraft <a href='https://bigdata.cs.ut.ee/'><img src='logo.png' align="right" height="138.5" /></a>
 
 Witchcraft is a library that contains a (small) family of novel, probabilistic, in memory, cheap and easily parallelized, data structures.
 
