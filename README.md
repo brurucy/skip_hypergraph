@@ -17,7 +17,7 @@ I wrote this package for you, because things don't excite you anymore.
 
 How many tree-like data structures are out there? ~~more than 8000?(cringy reference I know)~~ I have no idea how many, but, certainly ~~more than we need~~ lots, and, most importantly, you want to try something different, don't you?
 
-This is the right tool for you, if you **really** want to use Skip Lists~~, as long as you don't care about getting the next element in constant time, but let's keep that as a secret~~
+This is the right tool for you, if you **really** want to use Skip Lists ~~as long as you don't care about getting the next element in constant time, but let's keep that as a secret~~
 
 So, you might think 🤔, why not just use...Skip Lists?
 
