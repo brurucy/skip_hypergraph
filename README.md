@@ -1,42 +1,52 @@
-# O(log n) space skip-list-inspired data structure
+# # witchcraft <a href='https://bigdata.cs.ut.ee/'><img src='logo.png' align="right" height="138.5" /></a>
 
-## Point of the Project
+Witchcraft is a library that contains a (small) family of novel, probabilistic, in memory, cheap and easily parallelized, data structures.
 
-The main point of the project is create/develop/implement an efficient data structure that adapts the hierarchy of the skip list, randomized height, and possibly the skipping, to only need O(n) complexity, instead of O(n log n).
+Here's some characteristics:
 
-## Main idea
+1. O(n) space complexity.
+2. The data structures are, **thematically**, named with **incredibly** creative names. `TeleportList` has an interval-tree-like search, while `SplitList` splits its internal sublists in a **very** interesting way.
+3. `TeleportList` and `SplitList` make use of `MinMaxList`, which is nothing but an ordered list that provides O(1) access to max and min values.
+4. `MaxList` and `MinList` are derivations of `MinMaxList`, that, respectively, do not keep track of min and max, and are, maybe, used as sub levels of the `MinMaxList`.
+5. Approximately ~ average O(log n) complexity for search, insert and delete. **TODO** semi-formal complexity reasoning
+6. `SkipList`'s geometric-height-sort-of-thing hierarchy is kept.
 
-The main idea is to visualize the skip list as a multiset rendered as a directed hypergraph, in which the traversal direction is from the hyperedge that contains the elements with the biggest multiplicity to the ones with the smallest.
+# Rationale
 
-## Current variants
+I wrote this package for you, because things don't excite you anymore.
 
-* Linear search hypergraph with skipping // done, awful lol
+How many tree-like data structures are out there? ~~more than 8000?(cringy reference I know)~~ I have no idea how many, but, certainly ~~more than we need~~ lots, and, most importantly, you want to try something different, don't you?
 
-* Binary search hypergraph without skipping // done, very nice(read as borat)
+This is the right tool for you, if you **really** want to use Skip Lists~~, as long as you don't care about getting the next element in constant time, but let's keep that as a secret~~
 
-* B+Tree hypergraph // in the works, takes advantage of sorting many n lists of very small size
+So, you might think 🤔, why not just use...Skip Lists?
 
-* Binary heap hypergraph // done! can be optimized much more if it uses the `heapq` module
+* **O (n log n) space complexity** 🤢 that is very bad, SAD!.
 
-* Ultra Hyper Graph 😡 // done! Benchmark Hypergraph, done with the most efficient sorted list implementation out there ![sortedcontainers](http://www.grantjenks.com/docs/sortedcontainers/)
+* **No one seems to care about it?** there's barely any python skip-list libraries. Depressing. 😭
 
-## Next Step
+* You want a very cheap, and raw 🍣, kv-store.
 
-* Interval Tree for searching -- done
+* You think `sortedcontainers` is awesome, but you'd prefer to use something that could benefit from the ~~gorillon~~ many different cores your computer has(at some point, because right now it is single threaded 😍). 
 
-* Splaying
+## TODO, in order of importance
 
-* Access-based distribution
+* make it a kv store.
 
-* Hypergraph Set search : 
+* Add delete~~(lol we didn't yet)~~, either as actually deleting an element, or just marking it as deleted.
+
+* Use bloom filters to speed up recurring queries
+
+* Improve the interval search. What's the most efficient way of looking for all intervals that envelop an integer?
 
 ## Interesting papers and resources:
 
 * [Hypergraph coverage with ant colony optimization](https://blizzard.cs.uwaterloo.ca/~apat/projects/ACO-Hypergraph.pdf?fbclid=IwAR2VaxtnG11zyXvQsfvs5GmV_a7PwHPjvd86S2TorQJVyAf5JPdi8bHd3tY)
 * [Sorted containers](http://www.grantjenks.com/docs/sortedcontainers/)
 * [Higher-Dimensional models of networks](https://arxiv.org/pdf/0909.4314v1.pdf)
-* Splay Lists
-* BB-Tree
+* [Splay Lists](https://arxiv.org/pdf/2008.01009.pdf)
 * [The hypergraph bible](http://compalg.inf.elte.hu/~tony/Oktatas/Algoritmusok-hatekonysaga/Berge-hypergraphs.pdf)
 * [B-Skip-List](https://arxiv.org/pdf/1005.0662.pdf)
 * [Nice skip list implementation with fast RNG](https://github.com/geertj/pyskiplist/blob/master/pyskiplist/skiplist.py)
+
+at first we really wanted to turn this into a hypergraph problem, but in the end we didn't 🤙.
