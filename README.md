@@ -31,13 +31,31 @@ So, you might think 🤔, why not just use...Skip Lists?
 
 ## TODO, in order of importance
 
-* make it a kv store.
+### Main todos
 
-* Add delete ~~(lol we didn't yet)~~ , either as actually deleting an element, or just marking it as deleted.
+* ~~make it a kv store~~. // using a dict on the lower level
 
-* Use bloom filters to speed up recurring queries
+* ~~Add delete, either as actually deleting an element, or just marking it as deleted.~~ // delete and discard added
 
-* Improve the interval search. What's the most efficient way of looking for all intervals that envelop an integer?
+* ~~Use bloom filters to speed up recurring queries~~ // roaring bitmaps used
+
+* Normalize the data structures/names/variables/stuff like that/package everything/Fix the readme // Rucy
+
+* Complexity stuff // Jonas
+
+* Parallelization // Nikita
+
+* Final benchmarks ?
+
+* Poster.
+
+### Extra todos
+
+* Caching, LFU. experiments
+
+* Iterative Segment tree for queries / Improve the interval search. What's the most efficient way of looking for all intervals that envelop an integer?
+
+* [Learned Index](https://github.com/gvinciguerra/PyGM)
 
 ## Interesting papers and resources:
 
