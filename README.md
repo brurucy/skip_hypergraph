@@ -51,7 +51,7 @@ So, you might think 🤔, why not just use...Skip Lists?
 
 ### Extra todos
 
-* Caching, LFU. experiments
+* Caching, LFU. experiments. We could make it so that every time we add a new element it goes straight to a cache, and once it is overflown, then it evicts it to the actual data structure. [This could be a starting point](https://github.com/luxigner/lfu_cache)
 
 * Iterative Segment tree for queries / Improve the interval search. What's the most efficient way of looking for all intervals that envelop an integer?
 
