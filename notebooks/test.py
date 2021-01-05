@@ -2,25 +2,29 @@
 # This file serves for easy profiling of the parallelized SplitList with `py-spy`
 #
 
-from splitlist_parallel import SplitList as SplitListParallelized
+from multiprocessing import freeze_support
 import random
 
-random.seed(0)
-
-split_list_parallel = SplitListParallelized()
-
-nr = 100
-ten_thousand_integers = [random.randint(1, 2000000) for i in range(nr)]
-
-def test_insert_SplitListParallelized():
+def test_insert_SplitListParallelized(lst, nr):
     for i in range(nr):
-        split_list_parallel.insert(ten_thousand_integers[i])
-  
-def test_lookup_SplitListParallelized():
-    for i in range(nr):
-        split_list_parallel.lookup(ten_thousand_integers[i] + 1)
+        lst.insert(ten_thousand_integers[i])
 
+
+def test_lookup_SplitListParallelized(lst, nr):
+    for i in range(nr):
+        lst.lookup(ten_thousand_integers[i])
 
 if __name__ == '__main__':
-  test_insert_SplitListParallelized()
-  test_lookup_SplitListParallelized()
+    freeze_support()
+    from splitlist_parallel import SplitList as SplitListParallelized
+    random.seed(0)
+
+    split_list_parallel = SplitListParallelized()
+
+    size = 1_000_000
+    ten_thousand_integers = [random.randint(1, 2000000) for i in range(size)]
+
+    reps = 100
+    test_insert_SplitListParallelized(split_list_parallel, reps)
+    test_lookup_SplitListParallelized(split_list_parallel, reps)
+    split_list_parallel.done()
