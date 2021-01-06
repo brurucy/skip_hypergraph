@@ -5,11 +5,13 @@ import math
 import random as random
 from pyroaring import BitMap
 
-from multiprocessing import Process, Queue, cpu_count, Pool, Value, Array
+from multiprocessing import Process, Queue, cpu_count, Pool, set_start_method
 from functools import partial
 import timeit
 import numpy as np
 SENTINEL = 'SENTINEL'
+
+set_start_method('fork') # NOTE: this is only availabe on UNIX (NOT on Windows)
 
 def cleanup_processes(processes):
     for process in processes:
@@ -95,10 +97,8 @@ class LookupWorker(object):
     def __init__(self, output_queue):
         self.output_queue = output_queue
 
-    def lookup_subprocess(self, heights, nr, batch_indices):
-        # TODO: maybe get args from shared memory instead
-        start, end = batch_indices
-        for he in heights[start:end]:
+    def lookup_subprocess(self, heights, nr):
+        for he in heights:
             if nr <= he.sublists[-1].max:
                 i = bisect.bisect_left(he.sublists, nr)
 
@@ -137,9 +137,9 @@ class SplitList:  # Rucy, rename it!
             query = input_queue.get()
             if query == SENTINEL:
                 break
-            shared_heights, shared_nr, shared_batch_indices = query
+            heights, nr = query
             worker = LookupWorker(output_queue)
-            worker.lookup_subprocess(shared_heights, shared_nr.value, shared_batch_indices)
+            worker.lookup_subprocess(heights, nr)
 
     def done(self):
         for i in range(self.n_workers):
@@ -154,18 +154,16 @@ class SplitList:  # Rucy, rename it!
             self.initWorkers()
         
         batch_size, batch_left = divmod(len(self.blists), self.n_workers)
-        shared_heights = Array(f'heights', self.blists)
-        shared_nr = Value('nr', nr)
 
         for i in range(self.n_workers):
             take_heights = batch_size
             if batch_left > 0:
                 take_heights += 1
                 batch_left -= 1       
-            shared_batch_indices = Array('indices', (i*take_heights, i*take_heights+take_heights))
+            batch = self.blists[i*take_heights:i*take_heights+take_heights]
             
             # print((i*take_heights, i*take_heights+take_heights))     
-            self.lookup_input_queue.put((shared_heights, shared_nr, shared_batch_indices))
+            self.lookup_input_queue.put((batch, nr))
 
         result = False
         for i in range(self.n_workers):
