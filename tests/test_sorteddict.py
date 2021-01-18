@@ -32,6 +32,7 @@ def test_roaring_teleport_list_many():
     for i in random_integers:
         assert list_instance.lookup(i) == 'value'
 
+
 def test_roaring_split_list_in():
     list_instance = RoaringSplitList(load=2000)
     list_instance.insert(1, 'value')

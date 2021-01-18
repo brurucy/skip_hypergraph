@@ -47,7 +47,7 @@ class RoaringTeleportList(dict):
         highest = self.subindexes[height]
 
         if key not in highest.indexes:
-            highest.insert(key, value)
+            highest.insert(key)
             dict.__setitem__(self, key, value)
 
     def lookup(self, key):
