@@ -39,21 +39,53 @@ So, you might think 🤔, why not just use...Skip Lists?
 
 * ~~Use bloom filters to speed up recurring queries~~ // roaring bitmaps used
 
-* Normalize the data structures/names/variables/stuff like that/package everything/Fix the readme // Rucy
+* Use the abstract classes `collections.abc` to wrap the SplitList and Roaring Stuff 2 - Priority // Rucy
 
-* Complexity stuff // Jonas
+* Fix the Readme and Improve the wording on the Notebook 3 - Priority // Rucy
 
-* Parallelization // Nikita
+* Clean up the implementations and normalize them 1 - Priority // Rucy
 
-* Final benchmarks ?
+* ~~Complexity stuff and Description~~ // Jonas
 
-* Poster.
+* ~~Parallelization Attempt~~ // Nikita
+
+* ~~Improve Bisect / Monobound Binary Search used instead~~ // Nikita
+
+* Final benchmarks // Nikita. 
+
+* Paper-ish thingy // All. 
+
+* Poster. // ???????? 
+
+### Final Benchmarks considerations
+
+#### Data Structures Classification
+
+We have two data structures.
+
+All the ones indexed by roaring bitmaps, are `SortedDict`
+
+`SortedDict` has indexes distributed over the structure, while the data is in the top level.
+
+`SortedList` has only the indexes, that cannot be Bitmaps. They must be lists/arrays/else.
+
+#### What to benchmark against?
+
+`SortedList` - SplitList, MonoboundSplitList, py-skiplist(whatever the name of the package is), SortedList from sorted containers
+
+`SortedDict` - RoaringSplitList, RoaringTeleportList, SortedDict from sorted containers
+
+#### Ranges to benchmark over
+
+10, 100, 1000, 10000, 100000, 1000000
+
+100/25 repetitions each.
 
 ### Extra todos
 
 * Caching, LFU. experiments. We could make it so that every time we add a new element it goes straight to a cache, and once it is overflown, then it evicts it to the actual data structure. [This could be a starting point](https://github.com/luxigner/lfu_cache)
 
-* Iterative Segment tree for queries / Improve the interval search. What's the most efficient way of looking for all intervals that envelop an integer?
+* Inverted Indexes. Index all mins/max.
 
 * [Learned Index](https://github.com/gvinciguerra/PyGM)
 
