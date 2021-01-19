@@ -7,5 +7,5 @@
 */.ipynb_checkpoints/*
 
 __pycache__/
-# .eggs/
-# *.egg-info
+eggs
+*.egg-info
