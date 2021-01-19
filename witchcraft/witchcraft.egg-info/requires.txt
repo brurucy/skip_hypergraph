@@ -1,5 +1,0 @@
-pyroaring
-
-[testing]
-pytest
-pytest-cov
