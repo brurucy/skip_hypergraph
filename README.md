@@ -39,7 +39,7 @@ So, you might think 🤔, why not just use...Skip Lists?
 
 * ~~Use bloom filters to speed up recurring queries~~ // roaring bitmaps used
 
-* Use the abstract classes `collections.abc` to wrap the SplitList and Roaring Stuff 2 - Priority // Rucy
+* ~~~Use the abstract classes `collections.abc` to wrap the SplitList and Roaring Stuff 2 - Priority // Rucy~~
 
 * Fix the Readme and Improve the wording on the Notebook 3 - Priority // Rucy
 
@@ -51,11 +51,17 @@ So, you might think 🤔, why not just use...Skip Lists?
 
 * ~~Improve Bisect / Monobound Binary Search used instead~~ // Nikita
 
-* Final benchmarks // Nikita. 
+* ~~Final benchmarks // Nikita.~~ 
 
-* Paper-ish thingy // All. 
+* ~~Paper-ish thingy // All.~~ // canceled
 
-* Poster. // ???????? 
+* ~~Poster Draft. // Johnny~~ 
+
+* Make the graphs // Rucy
+
+* Format/arrange stuff in the Poster // Johnny
+
+* Parallelization Attempt 2.0 // Nikita
 
 ### Final Benchmarks considerations
 
