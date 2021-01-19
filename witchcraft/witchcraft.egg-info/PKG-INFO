@@ -1,6 +1,6 @@
 Metadata-Version: 2.1
 Name: witchcraft
-Version: 0.0.post0.dev28+g0cf10f4.dirty
+Version: 0.0.post0.dev29+g3ef75ba.dirty
 Summary: A library for SortedList and SortedDicts.
 Home-page: https://github.com/brurucy/witchcraft
 Author: B. Rucy, Joonas J2rve and Mykyta Baliesnyi

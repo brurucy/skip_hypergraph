@@ -1,0 +1,188 @@
+---
+title: "generating_graphs"
+author: "rucy"
+date: "1/19/2021"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+library(tidyverse)
+
+p <- c(0.25, 0.5, 0.75, 0.95)
+
+p_names <- map_chr(p, ~paste0(.x*100, "%"))
+
+p_funs <- map(p, ~partial(quantile, probs = .x, na.rm = TRUE)) %>% 
+  set_names(nm = p_names)
+
+options(scipen=999)
+measurements <- read_csv("benchmarks.csv") %>%
+  mutate(Implementation = case_when(
+    grepl('RoaringSplitList', Implementation) ~ 'RoaringSplitList',
+    grepl('Monobound', Implementation) ~ 'MonoboundSplitList',
+    grepl('SplitList-2000', Implementation) ~ 'SplitList',
+    grepl('SplitList-10000', Implementation) ~ 'SplitList',
+    TRUE ~ Implementation
+  ))
+
+```
+
+## aggregate statistics
+
+```{r}
+
+sortedlists <- measurements %>%
+  filter(`Abstract Data Type` == "SortedList") %>%
+  group_by(`Data Size`, Implementation, Operation) %>%
+  summarize(mean_runtime = mean(Runtime))
+
+sortedlists_inserts <- sortedlists %>% filter(Operation == "insert")
+sortedlists_lookups <- sortedlists %>% filter(Operation == "lookup_inserted")
+sortedlists_not_in_lookups <- sortedlists %>% filter(Operation == "lookup_not_inserted")
+
+sorteddicts <- measurements %>%
+  filter(`Abstract Data Type` == "SortedDict") %>%
+  group_by(`Data Size`, Implementation, Operation) %>%
+  summarize(mean_runtime = mean(Runtime))
+
+sorteddicts_inserts <- sorteddicts %>% filter(Operation == "insert")
+sorteddicts_lookups <- sorteddicts %>% filter(Operation == "lookup_inserted")
+sorteddicts_not_in_lookups <- sorteddicts %>% filter(Operation == "lookup_not_inserted")
+
+
+```
+
+## Graphs
+
+### Sorted List
+
+```{r}
+
+sli <- ggplot(data = sortedlists_inserts, aes(x = factor(`Data Size`), y = log(mean_runtime), colour = Implementation, group = Implementation)) +
+  geom_line(size=1.5, aes(linetype=Implementation)) +
+  theme_minimal() +
+  theme(panel.grid.major = element_blank(),
+        axis.title = element_text(face="bold", hjust=1)) +
+  ylab("Log mean runtime") +
+  xlab("Data size") +
+  scale_linetype_manual(values = c(
+    "PySkipList" = "twodash",
+    "SplitList" = "longdash",
+    "MonoboundSplitList" = "dashed",
+    "SortedContainersSortedList" = "solid"
+  )) +
+  scale_color_manual(values = c(
+    "PySkipList" = "#616161",
+    "SplitList" = "#2332b7",
+    "MonoboundSplitList" = "#00ff6d",
+    "SortedContainersSortedList" = "#ff3900"
+  ))
+
+sll <- ggplot(data = sortedlists_lookups, aes(x = factor(`Data Size`), y = log(mean_runtime), colour = Implementation, group = Implementation)) +
+  geom_line(size=1.5, aes(linetype=Implementation)) +
+  theme_minimal() +
+  theme(panel.grid.major = element_blank(),
+        axis.title = element_text(face="bold", hjust=1)) +
+  ylab("Log mean runtime") +
+  xlab("Data size") +
+  scale_linetype_manual(values = c(
+    "PySkipList" = "twodash",
+    "SplitList" = "longdash",
+    "MonoboundSplitList" = "dashed",
+    "SortedContainersSortedList" = "solid"
+  )) +
+  scale_color_manual(values = c(
+    "PySkipList" = "#616161",
+    "SplitList" = "#2332b7",
+    "MonoboundSplitList" = "#00ff6d",
+    "SortedContainersSortedList" = "#ff3900"
+  ))
+
+slln <- ggplot(data = sortedlists_not_in_lookups, aes(x = factor(`Data Size`), y = log(mean_runtime), colour = Implementation, group = Implementation)) +
+  geom_line(size=1.5, aes(linetype=Implementation)) +
+  theme_minimal() +
+  theme(panel.grid.major = element_blank(),
+        axis.title = element_text(face="bold", hjust=1)) +
+  ylab("Log mean runtime") +
+  xlab("Data size") +
+  scale_linetype_manual(values = c(
+    "PySkipList" = "twodash",
+    "SplitList" = "longdash",
+    "MonoboundSplitList" = "dashed",
+    "SortedContainersSortedList" = "solid"
+  )) +
+  scale_color_manual(values = c(
+    "PySkipList" = "#616161",
+    "SplitList" = "#2332b7",
+    "MonoboundSplitList" = "#00ff6d",
+    "SortedContainersSortedList" = "#ff3900"
+  ))
+  #+
+  #scale_x_discrete(breaks = c(100, 1000, 10000, 100000, 1000000))
+
+```
+
+### Sorted Dict
+
+```{r}
+
+sdi <- ggplot(data = sorteddicts_inserts, aes(x = factor(`Data Size`), y = log(mean_runtime), colour = Implementation, group = Implementation)) +
+  geom_line(size=1.5, aes(linetype=Implementation)) +
+  theme_minimal() +
+  theme(panel.grid.major = element_blank(),
+        axis.title = element_text(face="bold", hjust=1)) +
+  ylab("Log mean runtime") +
+  xlab("Data size") +
+  scale_linetype_manual(values = c(
+    "RoaringSplitList" = "twodash",
+    "RoaringTeleportList" = "longdash",
+    "SortedContainersSortedDict" = "solid"
+  )) +
+  scale_color_manual(values = c(
+    "RoaringSplitList" = "#616161",
+    "RoaringTeleportList" = "#2332b7",
+    "SortedContainersSortedDict" = "#ff3900"
+  ))
+
+sdl <- ggplot(data = sorteddicts_lookups, aes(x = factor(`Data Size`), y = log(mean_runtime), colour = Implementation, group = Implementation)) +
+  geom_line(size=1.5, aes(linetype=Implementation)) +
+  theme_minimal() +
+  theme(panel.grid.major = element_blank(),
+        axis.title = element_text(face="bold", hjust=1)) +
+  ylab("Log mean runtime") +
+  xlab("Data size") +
+  scale_linetype_manual(values = c(
+    "RoaringSplitList" = "twodash",
+    "RoaringTeleportList" = "longdash",
+    "SortedContainersSortedDict" = "solid"
+  )) +
+  scale_color_manual(values = c(
+    "RoaringSplitList" = "#616161",
+    "RoaringTeleportList" = "#2332b7",
+    "SortedContainersSortedDict" = "#ff3900"
+  ))
+
+sdln <- ggplot(data = sorteddicts_not_in_lookups, aes(x = factor(`Data Size`), y = log(mean_runtime), colour = Implementation, group = Implementation)) +
+  geom_line(size=1.5, aes(linetype=Implementation)) +
+  theme_minimal() +
+  theme(panel.grid.major = element_blank(),
+        axis.title = element_text(face="bold", hjust=1)) +
+  ylab("Log mean runtime") +
+  xlab("Data size") +
+  scale_linetype_manual(values = c(
+    "RoaringSplitList" = "twodash",
+    "RoaringTeleportList" = "longdash",
+    "SortedContainersSortedDict" = "solid"
+  )) +
+  scale_color_manual(values = c(
+    "RoaringSplitList" = "#616161",
+    "RoaringTeleportList" = "#2332b7",
+    "SortedContainersSortedDict" = "#ff3900"
+  ))
+
+
+```
