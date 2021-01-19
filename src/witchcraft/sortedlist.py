@@ -2,7 +2,7 @@ from bisect import bisect_left, insort_left
 from math import log2
 from random import random
 from array import array
-from witchcraft.bisect_killer import cy_monobound
+from witchcraft.bisect_killer.cy_monobound import binary_search as monobound_binary_search
 
 def handle_overflow(list_of_buckets, i, load, support_cython=False):
     B = Bucket(support_cython)
@@ -154,7 +154,7 @@ class MonoboundSplitList:
                 if not(nr > lb[-1].max or nr < lb[0].min): 
                     i = bisect_left(lb, nr)
                     if i != len(lb) and not(lb[i].min > nr):
-                        j = cy_monobound.binary_search(hee[i].indexes, len(lb[i].indexes), nr)
+                        j = monobound_binary_search(hee[i].indexes, len(lb[i].indexes), nr)
                         if j >= 0:
                             if len(lb[i].indexes) == 1:
                                 del lb[i]
@@ -171,9 +171,9 @@ class MonoboundSplitList:
             lb = he.list_of_buckets
             if len(lb) != 0: 
                 if not( nr > lb[-1].max or nr < lb[0].min): #skipping
-                    i = bisect.bisect_left(lb, nr)
+                    i = bisect_left(lb, nr)
                     if i != len(lb) and not(lb[i].min > nr):
-                        j = cy_monobound.binary_search(lb[i].indexes, len(lb[i].indexes), nr)
+                        j = monobound_binary_search(lb[i].indexes, len(lb[i].indexes), nr)
                         if j >= 0:
                             return True
 
