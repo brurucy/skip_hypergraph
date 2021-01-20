@@ -16,6 +16,7 @@ Here's some characteristics:
 2. `python3 -m pip install -e .`
 3. `python3 -m setup pytest`
 4. then, wherever you want to use it: `import witchcraft as wc`
+5. `SplitList` is under `wc.sortedlist` and all ordered dictionaries are under `wc.sorteddict`
 
 ## TODO, in order of importance
 
