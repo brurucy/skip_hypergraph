@@ -27,7 +27,7 @@ Here's some characteristics:
 
 * ~~Use bloom filters to speed up recurring queries~~ // roaring bitmaps used
 
-* ~~~Use the abstract classes `collections.abc` to wrap the SplitList and Roaring Stuff 2~~ // Rucy
+* ~~Use the abstract classes `collections.abc` to wrap the SplitList and Roaring Stuff 2~~ // Rucy
 
 * ~~Fix the Readme and Improve the wording on the Notebook~~ - Priority // Rucy
 
