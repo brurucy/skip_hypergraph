@@ -5,29 +5,17 @@ Witchcraft is a library that contains a (small) family of novel, probabilistic, 
 Here's some characteristics:
 
 1. O(n) space complexity.
-2. The data structures are, **thematically**, named with **incredibly** creative names. `TeleportList` has an interval-tree-like search, while `SplitList` splits its internal sublists in a **very** interesting way.
-3. `TeleportList` and `SplitList` make use of `MinMaxList`, which is nothing but an ordered list that provides O(1) access to max and min values.
-4. `MaxList` and `MinList` are derivations of `MinMaxList`, that, respectively, do not keep track of min and max, and are, maybe, used as sub levels of the `MinMaxList`.
-5. Approximately ~ average O(log n) complexity for search, insert and delete. **TODO** semi-formal complexity reasoning
-6. `SkipList`'s geometric-height-sort-of-thing hierarchy is kept.
+2. The data structures are, **thematically**, named with **incredibly** creative names. `TeleportList` has an interval-tree-like search, while `SplitList` splits its internal sublists in buckets, similarly to a B-Tree.
+3. `TeleportList` and `SplitList` make use of `MinMaxList`, which is an ordered list that provides O(1) access to max and min values.
+4. Approximately ~ average O(log n) complexity for search, insert and delete.
+5. `SkipList`'s geometric-height-sort-of-thing hierarchy is kept.
 
-# Rationale
+## How to install
 
-I wrote this package for you, because things don't excite you anymore.
-
-How many tree-like data structures are out there? ~~more than 8000?(cringy reference I know)~~ I have no idea how many, but, certainly ~~more than we need~~ lots, and, most importantly, you want to try something different, don't you?
-
-This is the right tool for you, if you **really** want to use Skip Lists ~~as long as you don't care about getting the next element in constant time, but let's keep that as a secret~~
-
-So, you might think 🤔, why not just use...Skip Lists?
-
-* **O (n log n) space complexity** 🤢 that is very bad, SAD!.
-
-* **No one seems to care about it?** there's barely any python skip-list libraries. Depressing. 😭
-
-* You want a very cheap, and raw 🍣, kv-store.
-
-* You think `sortedcontainers` is awesome, but you'd prefer to use something that could benefit from the ~~gorillon~~ many different cores your computer has(at some point, because right now it is single threaded 😍). 
+1. `git clone https://github.com/brurucy/witchcraft`
+2. `python3 -m pip install -e .`
+3. `python3 -m setup pytest`
+4. then, wherever you want to use it: `import witchcraft as wc`
 
 ## TODO, in order of importance
 
@@ -39,11 +27,11 @@ So, you might think 🤔, why not just use...Skip Lists?
 
 * ~~Use bloom filters to speed up recurring queries~~ // roaring bitmaps used
 
-* ~~~Use the abstract classes `collections.abc` to wrap the SplitList and Roaring Stuff 2 - Priority // Rucy~~
+* ~~~Use the abstract classes `collections.abc` to wrap the SplitList and Roaring Stuff 2~~ // Rucy
 
-* Fix the Readme and Improve the wording on the Notebook 3 - Priority // Rucy
+* ~~Fix the Readme and Improve the wording on the Notebook~~ - Priority // Rucy
 
-* Clean up the implementations and normalize them 1 - Priority // Rucy
+* ~~Clean up the implementations and normalize them~~ // Rucy
 
 * ~~Complexity stuff and Description~~ // Jonas
 
@@ -51,21 +39,19 @@ So, you might think 🤔, why not just use...Skip Lists?
 
 * ~~Improve Bisect / Monobound Binary Search used instead~~ // Nikita
 
-* ~~Final benchmarks // Nikita.~~ 
+* ~~Final benchmarks~~ // Nikita.
 
-* ~~Paper-ish thingy // All.~~ // canceled
+* ~~Paper-ish thingy~~ // canceled
 
-* ~~Poster Draft. // Johnny~~ 
+* ~~Poster Draft~~ // Johnny 
 
-* Make the graphs // Rucy
+* ~~Make the graphs~~ // Rucy
 
-* Format/arrange stuff in the Poster // Johnny
+* ~~Format/arrange stuff in the Poster~~ // Johnny
 
-* Parallelization Attempt 2.0 // Nikita
+* ~~Parallelization Attempt 2.0~~ // Nikita // canceled
 
-### Final Benchmarks considerations
-
-#### Data Structures Classification
+## Data Structures Classification
 
 We have two data structures.
 
@@ -73,21 +59,9 @@ All the ones indexed by roaring bitmaps, are `SortedDict`
 
 `SortedDict` has indexes distributed over the structure, while the data is in the top level.
 
-`SortedList` has only the indexes, that cannot be Bitmaps. They must be lists/arrays/else.
+`SortedList` has only the indexes, that cannot be Bitmaps, and can be any sort of complex python object.
 
-#### What to benchmark against?
-
-`SortedList` - SplitList, MonoboundSplitList, py-skiplist(whatever the name of the package is), SortedList from sorted containers
-
-`SortedDict` - RoaringSplitList, RoaringTeleportList, SortedDict from sorted containers
-
-#### Ranges to benchmark over
-
-10, 100, 1000, 10000, 100000, 1000000
-
-100/25 repetitions each.
-
-### Extra todos
+## Extra todos
 
 * Caching, LFU. experiments. We could make it so that every time we add a new element it goes straight to a cache, and once it is overflown, then it evicts it to the actual data structure. [This could be a starting point](https://github.com/luxigner/lfu_cache)
 
